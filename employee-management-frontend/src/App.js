@@ -1,12 +1,19 @@
 import './App.css';
 import Navbar from './components/Navbar';
 import Login from './components/Login';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Register from './components/Register';
 
 function App() {
   return (
    <>
     <Navbar/>
-    <Login/>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </Router>
    
    </>
   );
