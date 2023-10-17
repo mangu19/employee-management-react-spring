@@ -10,6 +10,7 @@ export default function Login() {
         <div className='container'>
             <center><h1 className="display-6 mb-3">Employee Login</h1></center>
             <hr/>
+        <div className='container' style={{width:550}}>
         <div className="form-floating mb-3">
             <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" />
             <label htmlFor="floatingInput">Email address</label>
@@ -22,13 +23,14 @@ export default function Login() {
             <center>
         <div className=" d-inline-flex" >
             <p className="lead">
-            <button type="submit" onClick={Click} className="btn btn-outline-primary mx-3">Sign in</button>
+            <button type="submit" onClick={Click} className="btn btn-outline-primary float-center mx-3">Sign in</button>
                 <a href='#' className='text-decoration-none btn btn-outline-success'>
                     New Employee 
                 </a>
             </p>
         </div>
             </center>
+        </div>
         </div>
     </div>
     </>
