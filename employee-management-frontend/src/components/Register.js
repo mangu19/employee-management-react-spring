@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
+import {Routes, Route, useNavigate} from 'react-router-dom';
 
 export default function Register() {
-
+    const navigate = useNavigate();
     
     const [user, setUser] = useState({
         email: '',
         password: '',
         name: '',
-        photoFile: null, // Initialize photoFile as null
+        photoFile: null,
         address: '',
         city: '',
         zip: '',
@@ -17,12 +18,12 @@ export default function Register() {
     const handleInputChange = (e) => {
         const { name, value, type } = e.target;
 
-        // If the input is a file input, capture the file object
         if (type === 'file') {
             setUser({ ...user, [name]: e.target.files[0] });
         } else {
             setUser({ ...user, [name]: value });
         }
+        console.log(user.email)
     };
 
     const handleSubmit = (e) => {
@@ -36,15 +37,17 @@ export default function Register() {
 
         // Send the formData to your backend or perform other actions
         // Example using the fetch API:
-        fetch('/api/users/register', {
+        fetch('https://localhost:8080/api/users/register', {
             method: 'POST',
             body: formData,
         })
+            .then(res=> res.json())
             .then((response) => {
-                // Handle the response
+                alert("Inserted");
             })
+            
             .catch((error) => {
-                // Handle errors
+                console.log("err"+error)
             });
     };
     
@@ -64,15 +67,15 @@ export default function Register() {
                 <form class="row g-3" onSubmit={handleSubmit}>
                     <div class="col-md-6">
                         <label for="inputEmail4" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="inputEmail4" value={user.email}  onChange={handleInputChange} />
+                        <input type="email" class="form-control" id="inputEmail4"   onChange={handleInputChange} />
                     </div>
                     <div class="col-md-6">
                         <label for="inputPassword4" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="inputPassword4" value={user.password}  onChange={handleInputChange}/>
+                        <input type="password" class="form-control" id="inputPassword4"   onChange={handleInputChange}/>
                     </div>
                     <div class="col-md-6">
                         <label for="inputName" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="inputName"  value={user.name} onChange={handleInputChange} />
+                        <input type="text" class="form-control" id="inputName"   onChange={handleInputChange} />
                     </div>
                     <div class="col-md-6">
                         <label for="inputPhoto" class="form-label">Photo</label>
@@ -80,21 +83,21 @@ export default function Register() {
                     </div>
                     <div class="col-12">
                         <label for="inputAddress" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" value={user.address} onChange={handleInputChange}/>
+                        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"  onChange={handleInputChange}/>
                     </div>
                   
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">City</label>
-                        <input type="text" class="form-control" id="inputCity" value={user.city} onChange={handleInputChange}/>
+                        <input type="text" class="form-control" id="inputCity" onChange={handleInputChange}/>
                     </div>
                     
                     <div class="col-md-2">
                         <label for="inputZip" class="form-label">Zip</label>
-                        <input type="text" class="form-control" id="inputZip" value={user.zip} onChange={handleInputChange}/>
+                        <input type="text" class="form-control" id="inputZip" onChange={handleInputChange}/>
                     </div>
                     <div class="col-md-4">
                     <label for="inputDegree" class="form-label">Degree</label>
-                        <input type="text" class="form-control" id="inputDegree" value={user.degree} onChange={handleInputChange}/>
+                        <input type="text" class="form-control" id="inputDegree"  onChange={handleInputChange}/>
                     </div>
                    
                     <div class="col-12 mb-3">
