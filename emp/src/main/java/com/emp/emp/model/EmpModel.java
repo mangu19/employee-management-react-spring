@@ -2,13 +2,16 @@ package com.emp.emp.model;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
 @Entity
+@Table(name = "EmpDetails")
 public class EmpModel {
  
     @Id
@@ -17,21 +20,22 @@ public class EmpModel {
     private String email;
     private String password;
     private String name;
-    private String photo; // You can store the image path or binary data as per your needs
+    
     private String address;
     private String city;
     private String zip;
     private String degree;
-    @Transient
-    private MultipartFile photoFile;
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] photo;
 
-    public MultipartFile getPhotoFile() {
-        return this.photoFile;
+    public byte[] getPhoto() {
+        return this.photo;
     }
 
-    public void setPhotoFile(MultipartFile photoFile) {
-        this.photoFile = photoFile;
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
     }
+    
 
     public Long getId() {
         return this.id;
@@ -65,13 +69,7 @@ public class EmpModel {
         this.name = name;
     }
 
-    public String getPhoto() {
-        return this.photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
+   
 
     public String getAddress() {
         return this.address;

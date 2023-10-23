@@ -16,19 +16,18 @@ export default function Register() {
     });
 
     const handleInputChange = (e) => {
-        const { name, value, type } = e.target;
+        const { name, value, type, files } = e.target;
 
-        if (type === 'file') {
-            setUser({ ...user, [name]: e.target.files[0] });
-        } else {
-            setUser({ ...user, [name]: value });
-        }
-        console.log(user.email)
+        setUser((prevUser) => ({
+            ...prevUser,
+            [name]: type === 'file' ? files[0] : value,
+        }));
+        console.log(user.name)
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
+console.log("User: "+user.name)
         // Prepare a FormData object for file uploads
         const formData = new FormData();
         for (const key in user) {
@@ -37,7 +36,7 @@ export default function Register() {
 
         // Send the formData to your backend or perform other actions
         // Example using the fetch API:
-        fetch('https://localhost:8080/api/users/register', {
+        fetch('http://localhost:8080/api/users/register', {
             method: 'POST',
             body: formData,
         })
@@ -67,37 +66,37 @@ export default function Register() {
                 <form class="row g-3" onSubmit={handleSubmit}>
                     <div class="col-md-6">
                         <label for="inputEmail4" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="inputEmail4"   onChange={handleInputChange} />
+                        <input type="email" class="form-control" id="inputEmail4" name='email'  onChange={handleInputChange} />
                     </div>
                     <div class="col-md-6">
                         <label for="inputPassword4" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="inputPassword4"   onChange={handleInputChange}/>
+                        <input type="password" class="form-control" id="inputPassword4"  name='password' onChange={handleInputChange}/>
                     </div>
                     <div class="col-md-6">
                         <label for="inputName" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="inputName"   onChange={handleInputChange} />
+                        <input type="text" class="form-control" value={user.name} id="inputName" name='name'  onChange={handleInputChange} />
                     </div>
                     <div class="col-md-6">
                         <label for="inputPhoto" class="form-label">Photo</label>
-                        <input type="file" class="form-control" accept='image/*' id="inputPhoto" onChange={handleInputChange}/>
+                        <input type="file" class="form-control" accept='image/*' id="inputPhoto" name='photo' onChange={handleInputChange}/>
                     </div>
                     <div class="col-12">
                         <label for="inputAddress" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"  onChange={handleInputChange}/>
+                        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name='address' onChange={handleInputChange}/>
                     </div>
                   
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">City</label>
-                        <input type="text" class="form-control" id="inputCity" onChange={handleInputChange}/>
+                        <input type="text" class="form-control" id="inputCity" onChange={handleInputChange} name='city'/>
                     </div>
                     
                     <div class="col-md-2">
                         <label for="inputZip" class="form-label">Zip</label>
-                        <input type="text" class="form-control" id="inputZip" onChange={handleInputChange}/>
+                        <input type="text" name='zip' class="form-control" id="inputZip" onChange={handleInputChange}/>
                     </div>
                     <div class="col-md-4">
                     <label for="inputDegree" class="form-label">Degree</label>
-                        <input type="text" class="form-control" id="inputDegree"  onChange={handleInputChange}/>
+                        <input type="text" name='degree' class="form-control" id="inputDegree"  onChange={handleInputChange}/>
                     </div>
                    
                     <div class="col-12 mb-3">
