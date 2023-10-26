@@ -33,7 +33,7 @@ export default function Login() {
     };
     
     const register = ()=>{
-        navigate('/register');
+        navigate('/profile');
     }
 
   return (
