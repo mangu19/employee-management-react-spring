@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {Routes, Route, useNavigate} from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 
 export default function Register() {
     const navigate = useNavigate();
@@ -41,9 +41,9 @@ console.log("User: "+user.name)
             body: formData,
         })
             .then(res=> res.json())
-            .then((response) => {
-                alert("Inserted");
-            })
+            .then(
+                alert("Inserted")
+            )
             
             .catch((error) => {
                 console.log("err"+error)

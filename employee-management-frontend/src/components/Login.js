@@ -1,12 +1,37 @@
-import React from 'react'
-import {Routes, Route, useNavigate} from 'react-router-dom';
-import Register from './Register';
+import React, {useState} from 'react'
+import { useNavigate} from 'react-router-dom';
+
 
 export default function Login() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
     const navigate = useNavigate();
-    const Click=()=>{
-        console.log("Login");
-    }
+    const handleLogin = () => {
+        fetch('http://localhost:8080/api/users/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password,
+            }),
+        })
+        .then((response) => {
+            if (response.status === 200) {
+                console.log("Login success")
+                
+            } else {
+                // Authentication failed, handle the error response
+                console.log("Login failed")
+            }
+        })
+        .catch((error) => {
+            // Handle network error
+        });
+    };
+    
     const register = ()=>{
         navigate('/register');
     }
@@ -19,18 +44,18 @@ export default function Login() {
             <hr/>
         <div className='container' style={{width:550}}>
         <div className="form-floating mb-3">
-            <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" />
+            <input type="email" className="form-control" name='email' id="floatingInput" onChange={(e) => setEmail(e.target.value)} placeholder="name@example.com" />
             <label htmlFor="floatingInput">Email address</label>
         </div>
         <div className="form-floating mb-3">
-            <input type="password" className="form-control" id="floatingPassword" placeholder="Password" />
+            <input type="password" className="form-control" name='password' id="floatingPassword" onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
             <label htmlFor="floatingPassword">Password</label>
 
         </div>
             <center>
         <div className=" d-inline-flex" >
             <p className="lead">
-                <button type="submit" onClick={Click} className="btn btn-outline-primary float-center mx-3">Sign in</button>
+                <button type="submit" onClick={handleLogin} className="btn btn-outline-primary float-center mx-3">Sign in</button>
                 <button onClick={register}   className='text-decoration-none btn btn-outline-success'>
                     New Employee 
                     </button>
